@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jugs Result</title>
+    <script>
+        async function fetchResult(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData.entries());
+
+            const response = await fetch('/api/jugs', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+            const result = await response.json();
+            document.getElementById('result').innerText = JSON.stringify(result, null, 2);
+        }
+    </script>
+</head>
+<body>
+    <h1>Jugs Result</h1>
+    <form onsubmit="fetchResult(event)">
+        <label for="input1">Input 1:</label>
+        <input type="text" id="finJug1" name="Want Water in Jug 1" required><br>
+
+        <label for="input2">Input 2:</label>
+        <input type="text" id="finJug2" name="Want Water in Jug 2" required><br>
+
+        <label for="input3">Input 3:</label>
+        <input type="text" id="jug1Cap" name="Jug 1 Capacity" required><br>
+
+        <label for="input4">Input 4:</label>
+        <input type="text" id="jug2Cap" name="Jug 2 Capacity" required><br>
+
+        <button type="submit">Submit</button>
+    </form>
+    <pre id="result"></pre>
+</body>
+</html>
