@@ -14,3 +14,4 @@ Given two jugs with different capacities and no measuring markers, the goal is t
 - Handles edge cases
 
 ## Usage
+To solve the tough Water-jug problem through algorithm
