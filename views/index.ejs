@@ -38,6 +38,17 @@
             margin-bottom: 20px;
         }
         
+        .input-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .input-row .form-group {
+            flex: 1;
+            margin-bottom: 0;
+        }
+        
         label {
             display: block;
             margin-bottom: 8px;
@@ -145,24 +156,28 @@
     <div class="container">
         <h1>Water Jug Calculator</h1>
         <form onsubmit="fetchResult(event)">
-            <div class="form-group">
-                <label for="finJug1">Target Water in Jug 1:</label>
-                <input type="number" id="finJug1" name="finJug1" required>
+            <div class="input-row">
+                <div class="form-group">
+                    <label for="jug1Cap">Jug 1 Capacity:</label>
+                    <input type="number" id="jug1Cap" name="jug1Cap" required>
+                </div>
+    
+                <div class="form-group">
+                    <label for="jug2Cap">Jug 2 Capacity:</label>
+                    <input type="number" id="jug2Cap" name="jug2Cap" required>
+                </div>
             </div>
 
-            <div class="form-group">
-                <label for="finJug2">Target Water in Jug 2:</label>
-                <input type="number" id="finJug2" name="finJug2" required>
-            </div>
+            <div class="input-row">
+                <div class="form-group">
+                    <label for="finJug1">Target Water in Jug 1:</label>
+                    <input type="number" id="finJug1" name="finJug1" required>
+                </div>
 
-            <div class="form-group">
-                <label for="jug1Cap">Jug 1 Capacity:</label>
-                <input type="number" id="jug1Cap" name="jug1Cap" required>
-            </div>
-
-            <div class="form-group">
-                <label for="jug2Cap">Jug 2 Capacity:</label>
-                <input type="number" id="jug2Cap" name="jug2Cap" required>
+                <div class="form-group">
+                    <label for="finJug2">Target Water in Jug 2:</label>
+                    <input type="number" id="finJug2" name="finJug2" required>
+                </div>
             </div>
 
             <button type="submit">Calculate</button>
