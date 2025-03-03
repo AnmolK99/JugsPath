@@ -254,8 +254,13 @@
             fill: white;
         }
         
-        .jug-fill {
+        .jug-fill-1 {
             fill: #3a86ff;
+            transition: height 0.5s ease;
+        }
+        
+        .jug-fill-2 {
+            fill: #38b2ac;
             transition: height 0.5s ease;
         }
         
@@ -432,12 +437,29 @@
                 max-height: 300px;
             }
         }
+                .gradient-heading {
+                    font-size: 3rem;
+                    background: linear-gradient(45deg, var(--primary) 0%, var(--secondary) 100%);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    text-shadow: 0 2px 10px rgba(58, 134, 255, 0.2);
+                    margin-bottom: 1rem;
+                    letter-spacing: -0.5px;
+                    animation: fadeIn 1s ease-out;
+                }
+                
+                @keyframes fadeIn {
+                    from { opacity: 0; transform: translateY(-10px); }
+                    to { opacity: 1; transform: translateY(0); }
+                }
+                
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Water Jug Puzzle Solver</h1>
+            <h1 class="gradient-heading">Water Jug Puzzle Solver</h1>
+
             <p class="subtitle">
                 Find the solution to the classic water jug problem: given two jugs of different capacities, 
                 determine if and how you can measure a specific amount of water.
@@ -523,7 +545,7 @@
                                 <div class="jug">
                                     <svg width="100" height="150" viewBox="0 0 100 150">
                                         <rect id="jug1Outline" class="jug-outline" x="20" y="20" width="60" height="120" rx="5" />
-                                        <rect id="jug1Fill" class="jug-fill" x="20" y="140" width="60" height="0" />
+                                        <rect id="jug1Fill" class="jug-fill-1" x="20" y="140" width="60" height="0" />
                                     </svg>
                                     <div class="jug-label">
                                         Jug 1
@@ -534,7 +556,7 @@
                                 <div class="jug">
                                     <svg width="100" height="150" viewBox="0 0 100 150">
                                         <rect id="jug2Outline" class="jug-outline" x="20" y="20" width="60" height="120" rx="5" />
-                                        <rect id="jug2Fill" class="jug-fill" x="20" y="140" width="60" height="0" />
+                                        <rect id="jug2Fill" class="jug-fill-2" x="20" y="140" width="60" height="0" />
                                     </svg>
                                     <div class="jug-label">
                                         Jug 2
