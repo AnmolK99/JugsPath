@@ -3,9 +3,11 @@ let resultKey = false;
 let foundResult = false;
 let foundResultNode;
 let resultJug1, resultJug2, jugCapacity1, jugCapacity2;
+var totalCreatedNodes = 0;
 
 
 function findPath(finJug1, finJug2, jugCap1, jugCap2) {
+  // console.log(finJug1, ' - ', finJug2, ' - ', jugCap1, ' - ', jugCap2, ' - ');
   jugCapacity1 = jugCap1;
   jugCapacity2 = jugCap2;
   resultJug1 = finJug1;
@@ -16,13 +18,14 @@ function findPath(finJug1, finJug2, jugCap1, jugCap2) {
   traverse(resultNode, null, 0);
 
   // console.log(resultNode);
+  console.log('Total nodes created - ', totalCreatedNodes);
   if (foundResult) {
-    console.log('Result found');
-    return backtrackAndReturnPath(foundResultNode);
-    // console.log(foundResultNode);
+    let response = backtrackAndReturnPath(foundResultNode);
+    // console.log('Result found - ', JSON.stringify(response));
+    return response;
   } else {
     console.log('Result not found');
-    return backtrackAndReturnPath([]);
+    return backtrackAndReturnPath(null);
   }
 }
 
@@ -35,7 +38,7 @@ function traverse(currNode, prevNode, steps) {
       currJug1 = 0;
       let key = currJug1 + '-' + currJug2;
 
-      if (!traversedResults[key] || traversedResults[key].steps > steps + 1) {
+      if (!traversedResults[key] || traversedResults[key] > steps + 1) {
         let newNode = createNewNode(currJug1, currJug2, currNode, steps + 1);
         traverse(newNode, currNode, steps + 1);
       }
@@ -47,7 +50,7 @@ function traverse(currNode, prevNode, steps) {
       currJug2 = 0;
       let key = currJug1 + '-' + currJug2;
 
-      if (!traversedResults[key] || traversedResults[key].steps > steps + 1) {
+      if (!traversedResults[key] || traversedResults[key] > steps + 1) {
         let newNode = createNewNode(currJug1, currJug2, currNode, steps + 1);
         traverse(newNode, currNode, steps + 1);
       }
@@ -59,7 +62,7 @@ function traverse(currNode, prevNode, steps) {
       currJug1 = jugCapacity1;
       let key = currJug1 + '-' + currJug2;
 
-      if (!traversedResults[key] || traversedResults[key].steps > steps + 1) {
+      if (!traversedResults[key] || traversedResults[key] > steps + 1) {
         let newNode = createNewNode(currJug1, currJug2, currNode, steps + 1);
         traverse(newNode, currNode, steps + 1);
       }
@@ -71,7 +74,7 @@ function traverse(currNode, prevNode, steps) {
       currJug2 = jugCapacity2;
       let key = currJug1 + '-' + currJug2;
 
-      if (!traversedResults[key] || traversedResults[key].steps > steps + 1) {
+      if (!traversedResults[key] || traversedResults[key] > steps + 1) {
         let newNode = createNewNode(currJug1, currJug2, currNode, steps + 1);
         traverse(newNode, currNode, steps + 1);
       }
@@ -90,7 +93,7 @@ function traverse(currNode, prevNode, steps) {
       }
       let key = currJug1 + '-' + currJug2;
 
-      if (!traversedResults[key] || traversedResults[key].steps > steps + 1) {
+      if (!traversedResults[key] || traversedResults[key] > steps + 1) {
         let newNode = createNewNode(currJug1, currJug2, currNode, steps + 1);
         traverse(newNode, currNode, steps + 1);
       }
@@ -109,7 +112,7 @@ function traverse(currNode, prevNode, steps) {
       }
       let key = currJug1 + '-' + currJug2;
 
-      if (!traversedResults[key] || traversedResults[key].steps > steps + 1) {
+      if (!traversedResults[key] || traversedResults[key] > steps + 1) {
         let newNode = createNewNode(currJug1, currJug2, currNode, steps + 1);
         traverse(newNode, currNode, steps + 1);
       }
@@ -121,7 +124,7 @@ function traverse(currNode, prevNode, steps) {
       currJug1 = jugCapacity1;
       let key = currJug1 + '-' + currJug2;
 
-      if (!traversedResults[key] || traversedResults[key].steps > steps + 1) {
+      if (!traversedResults[key] || traversedResults[key] > steps + 1) {
         let newNode = createNewNode(currJug1, currJug2, currNode, steps + 1);
         traverse(newNode, currNode, steps + 1);
       }
@@ -133,7 +136,7 @@ function traverse(currNode, prevNode, steps) {
       currJug2 = jugCapacity2;
       let key = currJug1 + '-' + currJug2;
 
-      if (!traversedResults[key] || traversedResults[key].steps > steps + 1) {
+      if (!traversedResults[key] || traversedResults[key] > steps + 1) {
         let newNode = createNewNode(currJug1, currJug2, currNode, steps + 1);
         traverse(newNode, currNode, steps + 1);
       }
@@ -151,15 +154,18 @@ function backtrackAndReturnPath(tail) {
   }
 
   for (let i = ar.length; i >= 0; i--) {
-    if (ar[i])
-      responseP.push(ar[i].name);
+    if (ar[i]) {
+      let arr = [ar[i].jug1, ar[i].jug2];
+      responseP.push(arr);
+    }
   }
   return responseP;
 }
 
 function createNewNode(jug1, jug2, prevNode, steps) {
   let newNode = new Node(jug1, jug2, prevNode, steps);
-  traversedResults[newNode.name] = newNode;
+  totalCreatedNodes++;
+  traversedResults[newNode.name] = steps;
 
   if (newNode.name == resultKey) {
     foundResult = true;
@@ -183,8 +189,8 @@ class Node {
 
 let jug1 = 3;
 let jug2 = 0;
-let jugCapa1 = 124;
-let jugCapa2 = 25;
+let jugCapa1 = 5;
+let jugCapa2 = 4;
 // findPath(jug1, jug2, jugCapa1, jugCapa2);
 
 // ------------------------------------------------------------------
