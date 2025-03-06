@@ -43,6 +43,9 @@ This solver works for more complex test cases (like below example)
 
 ## 🛠 Technologies Used
 
+- Node.js
+- Express.js
+- EJS Templating
 - HTML5
 - CSS3 (with modern layout techniques)
 - Vanilla JavaScript
