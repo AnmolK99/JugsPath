@@ -187,11 +187,11 @@ class Node {
 
 // ------------------------------------------------------------------
 
-let jug1 = 3;
-let jug2 = 0;
 let jugCapa1 = 5;
 let jugCapa2 = 4;
-// findPath(jug1, jug2, jugCapa1, jugCapa2);
+let jug1 = 3;
+let jug2 = 0;
+// console.log(findPath(jug1, jug2, jugCapa1, jugCapa2));
 
 // ------------------------------------------------------------------
 module.exports = {
