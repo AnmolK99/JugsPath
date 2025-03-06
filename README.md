@@ -1,17 +1,54 @@
-# Water Jug Problem Solver
+# 🏺 Water Jug Puzzle Solver
 
-This project implements a solution to the classic Water Jug Problem, also known as the Die Hard problem.
+## Overview
 
-## Problem Description
+The Water Jug Puzzle Solver is an interactive web application that helps users solve the classic water jug problem. Given two jugs of different capacities, the application finds a step-by-step solution to measure a specific amount of water.
 
-Given two jugs with different capacities and no measuring markers, the goal is to measure a specific amount of water. The jugs can be filled, emptied, and water can be transferred between them.
+![Dashboard UI](./temp/Water%20Jug%20Puzzle%20Solver_Working_Video_2025-03-07%2001-35-12.gif)
 
-## Features
+## 🌟 Features
 
-- Solves the water jug problem using breadth-first search algorithm
-- Provides step-by-step solution path
-- Validates input parameters
-- Handles edge cases
+- **Interactive Puzzle Solver**
+  - Input custom jug capacities
+  - Specify target water amounts
+  - Visualize solution steps
+  - Animated jug representations
 
-## Usage
-To solve the tough Water-jug problem through algorithm
+- **Detailed Solution Walkthrough**
+  - Step-by-step instructions
+  - Interactive navigation between steps
+  - Descriptive explanations of each action
+
+- **Responsive Design**
+  - Works on desktop and mobile devices
+  - Clean, modern UI
+  - Sticky jugs visualization
+
+## 🚀 How It Works
+
+1. Enter the capacities of two jugs
+2. Specify the target water amounts for each jug
+3. Click "Find Solution"
+4. Watch the step-by-step solution unfold
+
+### Example Scenario
+- Jug 1 Capacity: 5 liters
+- Jug 2 Capacity: 4 liters
+- Goal: Measure exactly 4 liters
+
+The solver will demonstrate how to achieve the desired water measurement using various pouring and emptying actions.
+
+This solver works for more complex test cases (like below example)
+![Example 2](./temp/Water%20Jug%20Puzzle%20Solver_Working_Video%202025-03-07%2001-43-41.gif)
+
+## 🛠 Technologies Used
+
+- HTML5
+- CSS3 (with modern layout techniques)
+- Vanilla JavaScript
+- Responsive Design Principles
+- SVG Animations
+
+## 💡 The Water Jug Puzzle
+
+The water jug puzzle is a classic problem in computer science and mathematical logic. The challenge is to measure a specific amount of water using jugs of different capacities, typically by pouring water between jugs or filling/emptying them.
