@@ -1,13 +1,14 @@
 const traversedResults = {};
-let resultKey = false;
+let resultKey = '';
 let foundResult = false;
 let foundResultNode;
+let resultSteps = Infinity;
 let resultJug1, resultJug2, jugCapacity1, jugCapacity2;
 var totalCreatedNodes = 0;
 
 
 function findPath(finJug1, finJug2, jugCap1, jugCap2) {
-  // console.log(finJug1, ' - ', finJug2, ' - ', jugCap1, ' - ', jugCap2, ' - ');
+  console.log(finJug1, ' - ', finJug2, ' - ', jugCap1, ' - ', jugCap2, ' - ');
   jugCapacity1 = jugCap1;
   jugCapacity2 = jugCap2;
   resultJug1 = finJug1;
@@ -30,116 +31,115 @@ function findPath(finJug1, finJug2, jugCap1, jugCap2) {
 }
 
 function traverse(currNode, prevNode, steps) {
-  if (!foundResult) {
-    {
-      // Empty Jug1 
-      let currJug1 = currNode.jug1;
-      let currJug2 = currNode.jug2;
+  // console.log(currNode.jug1, ' - ', currNode.jug2, ' ---- ', steps, ' - ');
+  {
+    // Empty Jug1 
+    let currJug1 = currNode.jug1;
+    let currJug2 = currNode.jug2;
+    currJug1 = 0;
+    let key = currJug1 + '-' + currJug2;
+
+    if (!traversedResults[key] || traversedResults[key] > steps + 1) {
+      let newNode = createNewNode(currJug1, currJug2, currNode, steps + 1);
+      traverse(newNode, currNode, steps + 1);
+    }
+  }
+  {
+    // Empty Jug2 
+    let currJug1 = currNode.jug1;
+    let currJug2 = currNode.jug2;
+    currJug2 = 0;
+    let key = currJug1 + '-' + currJug2;
+
+    if (!traversedResults[key] || traversedResults[key] > steps + 1) {
+      let newNode = createNewNode(currJug1, currJug2, currNode, steps + 1);
+      traverse(newNode, currNode, steps + 1);
+    }
+  }
+  {
+    // Fill Jug1 to Capacity
+    let currJug1 = currNode.jug1;
+    let currJug2 = currNode.jug2;
+    currJug1 = jugCapacity1;
+    let key = currJug1 + '-' + currJug2;
+
+    if (!traversedResults[key] || traversedResults[key] > steps + 1) {
+      let newNode = createNewNode(currJug1, currJug2, currNode, steps + 1);
+      traverse(newNode, currNode, steps + 1);
+    }
+  }
+  {
+    // Fill Jug2 to Capacity
+    let currJug1 = currNode.jug1;
+    let currJug2 = currNode.jug2;
+    currJug2 = jugCapacity2;
+    let key = currJug1 + '-' + currJug2;
+
+    if (!traversedResults[key] || traversedResults[key] > steps + 1) {
+      let newNode = createNewNode(currJug1, currJug2, currNode, steps + 1);
+      traverse(newNode, currNode, steps + 1);
+    }
+  }
+  {
+    // Fill water from Jug1 to Jug2
+    let currJug1 = currNode.jug1;
+    let currJug2 = currNode.jug2;
+    let buffer = jugCapacity2 - currJug2;
+    if (currJug1 >= buffer) {
+      currJug1 -= buffer;
+      currJug2 = jugCapacity2;
+    } else {
+      currJug2 += currJug1;
       currJug1 = 0;
-      let key = currJug1 + '-' + currJug2;
-
-      if (!traversedResults[key] || traversedResults[key] > steps + 1) {
-        let newNode = createNewNode(currJug1, currJug2, currNode, steps + 1);
-        traverse(newNode, currNode, steps + 1);
-      }
     }
-    {
-      // Empty Jug2 
-      let currJug1 = currNode.jug1;
-      let currJug2 = currNode.jug2;
+    let key = currJug1 + '-' + currJug2;
+
+    if (!traversedResults[key] || traversedResults[key] > steps + 1) {
+      let newNode = createNewNode(currJug1, currJug2, currNode, steps + 1);
+      traverse(newNode, currNode, steps + 1);
+    }
+  }
+  {
+    // Fill water from Jug2 to Jug1
+    let currJug1 = currNode.jug1;
+    let currJug2 = currNode.jug2;
+    let buffer = jugCapacity1 - currJug1;
+    if (currJug2 >= buffer) {
+      currJug2 -= buffer;
+      currJug1 = jugCapacity1;
+    } else {
+      currJug1 += currJug2;
       currJug2 = 0;
-      let key = currJug1 + '-' + currJug2;
-
-      if (!traversedResults[key] || traversedResults[key] > steps + 1) {
-        let newNode = createNewNode(currJug1, currJug2, currNode, steps + 1);
-        traverse(newNode, currNode, steps + 1);
-      }
     }
-    {
-      // Fill Jug1 to Capacity
-      let currJug1 = currNode.jug1;
-      let currJug2 = currNode.jug2;
-      currJug1 = jugCapacity1;
-      let key = currJug1 + '-' + currJug2;
+    let key = currJug1 + '-' + currJug2;
 
-      if (!traversedResults[key] || traversedResults[key] > steps + 1) {
-        let newNode = createNewNode(currJug1, currJug2, currNode, steps + 1);
-        traverse(newNode, currNode, steps + 1);
-      }
+    if (!traversedResults[key] || traversedResults[key] > steps + 1) {
+      let newNode = createNewNode(currJug1, currJug2, currNode, steps + 1);
+      traverse(newNode, currNode, steps + 1);
     }
-    {
-      // Fill Jug2 to Capacity
-      let currJug1 = currNode.jug1;
-      let currJug2 = currNode.jug2;
-      currJug2 = jugCapacity2;
-      let key = currJug1 + '-' + currJug2;
+  }
+  {
+    // Fill water in Jug1 to maximum capacity
+    let currJug1 = currNode.jug1;
+    let currJug2 = currNode.jug2;
+    currJug1 = jugCapacity1;
+    let key = currJug1 + '-' + currJug2;
 
-      if (!traversedResults[key] || traversedResults[key] > steps + 1) {
-        let newNode = createNewNode(currJug1, currJug2, currNode, steps + 1);
-        traverse(newNode, currNode, steps + 1);
-      }
+    if (!traversedResults[key] || traversedResults[key] > steps + 1) {
+      let newNode = createNewNode(currJug1, currJug2, currNode, steps + 1);
+      traverse(newNode, currNode, steps + 1);
     }
-    {
-      // Fill water from Jug1 to Jug2
-      let currJug1 = currNode.jug1;
-      let currJug2 = currNode.jug2;
-      let buffer = jugCapacity2 - currJug2;
-      if (currJug1 >= buffer) {
-        currJug1 -= buffer;
-        currJug2 = jugCapacity2;
-      } else {
-        currJug2 += currJug1;
-        currJug1 = 0;
-      }
-      let key = currJug1 + '-' + currJug2;
+  }
+  {
+    // Fill water in Jug2 to maximum capacity
+    let currJug1 = currNode.jug1;
+    let currJug2 = currNode.jug2;
+    currJug2 = jugCapacity2;
+    let key = currJug1 + '-' + currJug2;
 
-      if (!traversedResults[key] || traversedResults[key] > steps + 1) {
-        let newNode = createNewNode(currJug1, currJug2, currNode, steps + 1);
-        traverse(newNode, currNode, steps + 1);
-      }
-    }
-    {
-      // Fill water from Jug2 to Jug1
-      let currJug1 = currNode.jug1;
-      let currJug2 = currNode.jug2;
-      let buffer = jugCapacity1 - currJug1;
-      if (currJug2 >= buffer) {
-        currJug2 -= buffer;
-        currJug1 = jugCapacity1;
-      } else {
-        currJug1 += currJug2;
-        currJug2 = 0;
-      }
-      let key = currJug1 + '-' + currJug2;
-
-      if (!traversedResults[key] || traversedResults[key] > steps + 1) {
-        let newNode = createNewNode(currJug1, currJug2, currNode, steps + 1);
-        traverse(newNode, currNode, steps + 1);
-      }
-    }
-    {
-      // Fill water in Jug1 to maximum capacity
-      let currJug1 = currNode.jug1;
-      let currJug2 = currNode.jug2;
-      currJug1 = jugCapacity1;
-      let key = currJug1 + '-' + currJug2;
-
-      if (!traversedResults[key] || traversedResults[key] > steps + 1) {
-        let newNode = createNewNode(currJug1, currJug2, currNode, steps + 1);
-        traverse(newNode, currNode, steps + 1);
-      }
-    }
-    {
-      // Fill water in Jug2 to maximum capacity
-      let currJug1 = currNode.jug1;
-      let currJug2 = currNode.jug2;
-      currJug2 = jugCapacity2;
-      let key = currJug1 + '-' + currJug2;
-
-      if (!traversedResults[key] || traversedResults[key] > steps + 1) {
-        let newNode = createNewNode(currJug1, currJug2, currNode, steps + 1);
-        traverse(newNode, currNode, steps + 1);
-      }
+    if (!traversedResults[key] || traversedResults[key] > steps + 1) {
+      let newNode = createNewNode(currJug1, currJug2, currNode, steps + 1);
+      traverse(newNode, currNode, steps + 1);
     }
   }
 }
@@ -169,7 +169,10 @@ function createNewNode(jug1, jug2, prevNode, steps) {
 
   if (newNode.name == resultKey) {
     foundResult = true;
-    foundResultNode = newNode;
+    if (newNode.steps < resultSteps) {
+      resultSteps = newNode.steps;
+      foundResultNode = newNode;
+    }
   }
 
   return newNode;
