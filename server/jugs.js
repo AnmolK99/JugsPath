@@ -6,8 +6,23 @@ let resultSteps = Infinity;
 let resultJug1, resultJug2, jugCapacity1, jugCapacity2;
 var totalCreatedNodes = 0;
 
-
+function flushPreviousTraversedResults() {
+  // Reset all global variables
+  Object.keys(traversedResults).forEach(key => delete traversedResults[key]);
+  foundResult = false;
+  foundResultNode = null;
+  resultSteps = Infinity;
+  totalCreatedNodes = 0;
+  resultJug1 = null;
+  resultJug2 = null;
+  jugCapacity1 = null;
+  jugCapacity2 = null;
+  resultKey = '';
+}
 function findPath(finJug1, finJug2, jugCap1, jugCap2) {
+
+  flushPreviousTraversedResults();
+
   console.log(finJug1, ' - ', finJug2, ' - ', jugCap1, ' - ', jugCap2, ' - ');
   jugCapacity1 = jugCap1;
   jugCapacity2 = jugCap2;
@@ -31,7 +46,7 @@ function findPath(finJug1, finJug2, jugCap1, jugCap2) {
 }
 
 function traverse(currNode, prevNode, steps) {
-  // console.log(currNode.jug1, ' - ', currNode.jug2, ' ---- ', steps, ' - ');
+  console.log(currNode.jug1, ' - ', currNode.jug2, ' ---- ', steps, ' - ');
   {
     // Empty Jug1 
     let currJug1 = currNode.jug1;
